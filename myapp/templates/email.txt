@@ -1,0 +1,7 @@
+{% for c in consumed_food %}
+    {{c.food_consumed.name}}
+    {{c.food_consumed.carbs}}
+    {{c.food_consumed.protein}}
+    {{c.food_consumed.fats}}
+    {{c.food_consumed.calories}}
+{% endfor %}

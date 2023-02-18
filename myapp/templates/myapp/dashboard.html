@@ -1,0 +1,158 @@
+{% extends 'myapp/index.html' %}
+{% load static %}
+
+{% block body %}
+
+    <br>
+    <br>
+    <br>
+    <div style="text-align: center;"class="container">
+        <div class="row">
+            <div class="col-md-7" style="border-right: 1px solid brown;">
+                <h2 style="text-align: left;color: brown;">Welcome {{user.name}}</h2>
+                <table class="details table">
+                    <tbody>
+                      <tr>
+                        <th scope="row">Name:</th>
+                        <td>{{user.name}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Gender:</th>
+                        <td>{{user.gender}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Number:</th>
+                        <td>{{user.number}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Email:</th>
+                        <td>{{user.email}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Calorie Goal:</th>
+                        <td>{{user.caloriegoal}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Calorie Consumed:</th>
+                        <td><div class="progress position-relative"><div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: 0%; background-color: chocolate;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div><small class="progress-data justify-content-center d-flex position-absolute w-100"></small></div></td>
+                      </tr>
+                      <tr>
+                        <form method="POST">
+                          {% csrf_token %}
+                          <th scope="row" id="mail1" class="text-success">Congrats!! Daily Calorie goal achieved!!</td>
+                          <td><button name="EMAIL" value="sendmail" type="submit" id="mail2" class="mail btn btn-primary">send mail</button></td>
+                        </form>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-5">
+                <h2 style="text-align: center;color: brown;">Add New Food Item</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group row mt-2">
+                      <label for="FoodName" class="col-sm-3 col-form-label">Name</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" name="FoodName" placeholder="Enter Name">
+                      </div>
+                    </div>
+                    <div class="form-group row mt-1">
+                      <label for="FoodCarbs" class="col-sm-3 col-form-label">Carbs</label>
+                      <div class="col-sm-9">
+                        <input type="number" step="0.01" min="0" class="form-control" name="FoodCarbs" placeholder="Enter Carbs(gm)">
+                      </div>
+                    </div>
+                    <div class="form-group row mt-1">
+                      <label for="FoodProtein" class="col-sm-3 col-form-label">Protein</label>
+                      <div class="col-sm-9">
+                        <input type="number" step="0.01" min="0" class="form-control" name="FoodProtein" placeholder="Enter Protein(gm)">
+                      </div>
+                    </div>
+                    <div class="form-group row mt-1">
+                      <label for="FoodFats" class="col-sm-3 col-form-label">Fats</label>
+                      <div class="col-sm-9">
+                        <input type="number" step="0.01" min="0" class="form-control" name="FoodFats" placeholder="Enter Fats(gm)">
+                      </div>
+                    </div>
+                    <div class="form-group row mt-1">
+                      <label for="FoodCalories" class="col-sm-3 col-form-label">Calories</label>
+                      <div class="col-sm-9">
+                        <input type="number" min="0" class="form-control" name="FoodCalories" placeholder="Enter Calories(Kcal)">
+                      </div>
+                    </div>
+                    <div class="form-group row"><div class="col-sm-3"></div><div class="col-sm-9 mt-2"><button name="ADD" value="additem" class="form-control btn btn-success" type="submit">ADD</button></div></div>
+                </form>
+            </div>
+        </div>
+<br>
+<br>
+        <div class="row">
+            <div class="col-md-6">
+                <form method="POST">
+                    <div class="form-group row">
+                        {% csrf_token %}
+                        <h4><b style="color: brown;">Select Food to Consume</b></h4>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="food_consumed" id="food_consumed">
+                                {% for food in foods %}
+                                    <option value="{{food.name}}">{{food.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-sm-2"><button name="CONSUME" value="consumeitem" class="btn btn-success" type="submit">Consume</button></div>
+                    </div>
+                </form>
+                <br>
+                <br>
+                <div class="text-center">
+                    <h4 style="color: brown;"><b>Today's Consumption</b></h4>
+                </div>
+
+                <table id="table" class="table table-striped">
+                    <thead class="text-dark" style="background-color: tan;">
+                        <th>Food Item</th>
+                        <th>Carbs (gm)</th>
+                        <th>Protein (gm)</th>
+                        <th>Fats (gm)</th>
+                        <th>Calories (Kcal)</th>
+                        <th>Remove Item</th>
+                    </thead>
+                    {% for c in consumed_food %}
+                        <tr>
+                            <td>{{c.food_consumed.name}}</td>
+                            <td>{{c.food_consumed.carbs}}</td>
+                            <td>{{c.food_consumed.protein}}</td>
+                            <td>{{c.food_consumed.fats}}</td>
+                            <td>{{c.food_consumed.calories}}</td>
+                            <td><a class="btn btn-danger" onclick="return confirm('Are you sure?')" href="{% url 'delete' c.id %}">X</a></td>
+                        </tr>
+                    {% endfor %}
+
+                    <tr>
+                        <td id="name"><b>Total</b></td>
+                        <td id="Totalcarbs"></td>
+                        <td id="Totalprotein"></td>
+                        <td id="Totalfats"></td>
+                        <td id="Totalcalories"></td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="col-md-5 offset-1">
+                <div>
+                    <h4 style="color:brown"><b>Today's Breakdown</b></h4>
+                </div>                
+                <div class="card-header text-white bg-primary">
+                    <h4 style="background-color:tan">Macronutrients Breakdown</h4>
+                </div>
+                <br>
+                <div class="col-md-12">
+                    <canvas id="myChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock body %}
+

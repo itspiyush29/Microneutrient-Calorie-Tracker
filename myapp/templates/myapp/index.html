@@ -1,0 +1,350 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link href="{% static 'myapp/css/style.css' %}" type="text/css" rel="stylesheet">
+  <link href="{% static 'myapp/css/signup.css' %}" type="text/css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+</head>
+
+<body style="background-color: blanchedalmond;">
+  <nav class="navbar navbar-expand-lg navbar-light"style="background-color: tan;">
+    <div class="container-fluid">
+      <img src="{% static 'myapp/images/logo.jpg' %}" height="60" width="60" class="d-inline-block align-text-top logo">
+      <a class="navbar-brand ml-lg-10" href="#"> <span style="margin-left: 10px">Calorie Tracker</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" aria-current="page" href="{% url 'index' %}">Home</a>
+        {% if request.user.is_authenticated %}
+        <a class="nav-link" href="{% url 'logout' %}">logout</a>
+        {% else %}
+        <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
+{% comment %} messages {% endcomment %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show message" role="alert">
+  <strong>Message: </strong>{{ message }}
+  <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close" onclick="closemessage()"></button>
+</div>
+{% endfor %}
+<script> function closemessage() {
+  var ele = document.getElementsByClassName("message");
+  for (var i = 0; i < ele.length; i += 1) { ele[i].style.display = 'none'; }
+}
+</script>
+  {% block body %}
+  <br>
+  <br>
+  <br>
+  <div id="content">
+    <h2>Calorie Counting as a Means for Weight Loss</h2>
+    <p>Calorie counting with the intent of losing weight, on its simplest levels, can be broken down into a few general steps:</p>
+    <ol class="morelinespace">
+      <li>Determine your BMR using one of the provided equations. If you know your body fat percentage, the Katch-McArdle Formula might be a more accurate representation of your BMR. Remember that the values attained from these equations are approximations and subtracting exactly 500 calories from your BMR will not necessarily result in exactly 1 pound lost per week – it could be less, or it could be more!</li>
+      <li>Determine your weight loss goals. Recall that 1 pound (~0.45 kg) equates to approximately 3500 calories, and reducing daily caloric intake relative to estimated BMR by 500 calories per day will theoretically result in a loss of 1 pound a week. It is generally not advisable to lose more than 2 pounds per week as it can have negative health effects, i.e. try to target a maximum daily calorie reduction of approximately 1000 calories per day. Consulting your doctor and/or a registered dietician nutritionist (RDN) is recommended in cases where you plan to lose more than 2 pounds per week. </li>
+      <li>Choose a method to track your calories and progress towards your goals. If you have a smartphone, there are many easy-to-use applications that facilitate tracking calories, exercise, and progress, among other things. Many, if not all of these, have estimates for the calories in many brand-name foods or dishes at restaurants, and if not, they can estimate calories based on the amount of the individual components of the foods. It can be difficult to get a good grasp on food proportions and the calories they contain – which is why counting calories (as well as any other approach) is not for everyone – but if you meticulously measure and track the number of calories in some of your typical meals, it quickly becomes easier to accurately estimate calorie content without having to actually measure or weigh your food each time. There are also websites that can help to do the same, but if you prefer, manually maintaining an excel spreadsheet or even a pen and paper journal are certainly viable alternatives.</li>
+      <li>Track your progress over time and make changes to better achieve your goals if necessary. Remember that weight loss alone is not the sole determinant of health and fitness, and you should take other factors such as fat vs. muscle loss/gain into account as well. Also, it is recommended that measurements are taken over longer periods of time such as a week (rather than daily) as significant variations in weight can occur simply based on water intake or time of day. It is also ideal to take measurements under consistent conditions, such as weighing yourself as soon as you wake up and before breakfast, rather than at different times throughout the day. </li>
+      <li>Keep at it!</li>
+    </ol>
+    <p class="morelinespace">The above steps are an attempt at the most basic form of calorie counting. Calorie counting is not an exact science, and can be as complex as you want to make it. The above does not consider the proportions of macronutrients consumed. While there is no exactly known, ideal proportion of macronutrients (fats, proteins, carbohydrates), some balance is certainly advisable, and different foods have been found to have different effects on health, feelings of hunger, and number of calories burned. Generally, minimally processed plant and animal foods tend to be more conducive to healthy weight loss and maintenance.</p>
+    <p class="morelinespace">There are many approaches to weight loss and there is no set ideal method that works for all people, which is why so many different diets and exercise regimens exist. While some methods are more effective for each individual person, not all weight loss methods are equivalent, and studies suggest that some approaches are healthier than others. That being said, one of the most commonly effective weight loss methods is counting calories. In its most basic form, calories consumed minus calories expended will result in weight gain if the result is positive, or weight loss if the result is negative. However, this is far from a comprehensive picture, and many other factors play a role in affecting healthy, sustainable weight loss. For example, there exist conflicting studies addressing whether or not the type of calories or foods consumed, or how they are consumed, affects weight loss. Studies have shown that foods that require a person to chew more and are more difficult to digest result in the body burning more calories, sometimes referred to as the thermic effect of food. While the increase in burned calories may be marginal, foods that are more difficult to digest such as vegetables generally tend to be healthier and provide more nutrients for fewer calories than many processed foods.</p>
+    <p class="morelinespace">Consistent with the view that in regards to weight loss, only net calories are important and not their source, there exist cases such as the Twinkie diet, where a person that solely counted calories while eating a variety of cake snacks managed to lose 27 pounds over two months. As effective as this can be, it is certainly not suggested. While the participant did not seem to suffer any noticeable health detriments in this particular case, there are other less measurable factors that should be considered such as long-term effects of such a diet on potential for developing cancers, heart disease, and diabetes. However, ignoring efficiency and health, sustained, significant reduction of caloric intake or increase of physical activity should result in weight loss, and counting calories can be an effective way to achieve this sole result.</p>
+    <p class="morelinespace">Aside from being one viable method for facilitating weight loss, calorie counting has other somewhat less quantifiable advantages including helping to increase nutritional awareness. Many people are completely unaware of, or grossly underestimate their daily caloric intake. Counting calories can help raise awareness of different types of foods, the number of calories they contain, and how these calories have a different effect on a person's feelings of satiety. Once a person has a better understanding of how many calories are actually in that bag of chips that they can so easily inhale within minutes, how much of their daily caloric intake it consumes, and how little the chips do to satiate their hunger, portion control and avoidance of foods with empty calories tends to become easier.</p>
+    <p class="morelinespace">Having actual caloric measurements can also assist in weight loss, since tangible calorie goals can be set, rather than simply trying to eat less. Also, although this is not necessarily directly related to calorie counting, studies have shown that portion control by simply eating from a smaller plate can help reduce calorie intake, since people tend to fill their plates and eat everything on their plates. Many people do not realize that they are overeating, since they have become accustomed to restaurant-sized portions being the norm, when said portions can be up to three or more times larger than necessary for a typical meal. </p>
+    <p class="morelinespace">Tracking calories also puts exercise in a quantifiable perspective, increasing a person's awareness regarding how much exercise is really required to counteract a 220-calorie bag of M&amp;M's. Once a link is made between the amount of exercise that some snack equates to, many people find abstaining from that bag of chips to be the preferred option rather than performing an equivalent amount of exercise – which can lead to healthier eating habits.  </p>
+    <p class="morelinespace">In the end, however, what's important is picking a strategy that works for you. Calorie counting is only one method used to achieve weight loss amongst many, and even within this method, there are many possible approaches a person can take. Finding an approach that fits within your lifestyle that you think you would be able to adhere to is likely going to provide the most sustainable option and desirable result.  </p>
+    <h3>Zigzag Calorie Cycling</h3>
+    <p class="morelinespace">Zigzag calorie cycling is a weight loss approach that aims to counteract the human body's natural adaptive tendencies. Counting and restricting calories, as described above, is a viable method to lose weight, but over a period of time, it is possible for the body to adapt to the lower number of calories consumed. In cases where this happens, a plateau in weight loss that can be difficult to surmount can result. This is where zigzag calorie cycling can help, by not allowing the body to adapt to the lower calorie environment.</p>
+    <p class="morelinespace">Zigzag calorie cycling involves alternating the number of calories consumed on a given day. A person on a zigzag diet should have a combination of high-calorie and low-calorie days to meet the same overall weekly calorie target. For example, if your target calorie intake is 14,000 calories per week, you could consume 2,300 calories three days a week, and 1,775 the other four days of the week, or you could consume 2,000 calories each day. In both cases, 14,000 calories would be consumed over the week, but the body wouldn't adapt and compensate for a 2,000-calorie diet. This also allows a person more flexibility in their diet, allowing them to plan around occasions, such as work or family gatherings, where a person may consume more calories. Consuming a lower number of calories on other days can allow a person to enjoy these gatherings or even have a "cheat day" where they eat whatever they want without feeling guilty, since they can make up for the excess calories on their low-calorie days.</p>
+    <p class="morelinespace">There is no concrete rule or study that dictates the most effective way to alternate or spread out calorie consumption. How to vary calorie intake is largely up to personal discretion. Depending on a person's activity, it is generally recommended that the high-calorie and low-calorie days vary by approximately 200-300 calories, where the high-calorie day is often the number of calories a person needs to consume to maintain their current weight. For a person with a higher activity level, the calorie difference should be larger. The calculator presents two zigzag diet schedules. The first schedule has two higher calorie days and five lower calorie days. The second schedule increases and reduces calories gradually. In either case, the total weekly calorie consumption is the same.</p>
+    <p class="morelinespace">In the end, regardless of what method you choose to use when approaching weight loss, what's important is picking a strategy that works for you. Calorie counting and zigzag calorie cycling are only two methods (that are fairly interrelated) used to achieve weight loss among many, and even within these methods, there are many possible approaches a person can take. Finding an approach that fits within your lifestyle that you think you would be able to adhere to is likely going to provide the most sustainable and desirable result.</p>
+    <h2>How Many Calories Do You Need?</h2>
+    <p class="morelinespace">Many people seek to lose weight, and often the easiest way to do this is to consume fewer calories each day. But how many calories does the body actually need in order to be healthy? This largely depends on the amount of physical activity a person performs each day, and regardless of this, is different for all people – there are many different factors involved, not all of which are well-understood or known. </p>
+    <p class="morelinespace">Some factors that influence the number of calories a person needs to remain healthy include age, weight, height, sex, levels of physical activity, and overall general health. For example, a physically active 25-year-old male that is 6 feet in height requires considerably higher calorie intake than a 5-foot-tall, sedentary 70-year-old woman. Though it differs depending on age and activity level, adult males generally require 2,000-3000 calories per day to maintain weight while adult females need around 1,600-2,400 according to the U.S Department of Health.</p>
+    <p class="morelinespace">The body does not require many calories to simply survive. However, consuming too few calories results in the body functioning poorly, since it will only use calories for functions essential to survival, and ignore those necessary for general health and well-being. Harvard Health Publications suggests women get at least 1,200 calories and men get at least 1,500 calories a day unless supervised by doctors. As such, it is highly recommended that a person attempting to lose weight monitors their body's caloric necessities and adjusts them as necessary to maintain its nutritional needs.</p>
+    <h2>Calories: Different Kinds and Their Effects</h2>
+    <p class="morelinespace">The main sources of calories in a typical person's diet are carbohydrates, proteins, and fat, with alcohol also being a significant portion of calorie intake for many people (though ideally this should be limited since alcohol contains many empty calories). Some studies have shown that the calories displayed on nutrition labels and the calories actually consumed and retained can vary significantly. This hints at the complex nature of calories and nutrition and is why many conflicting points of view on the "best" methodology for losing weight exist. For example, how a person chews their food has been shown to affect weight loss to some degree; generally speaking, chewing food more increases the number of calories that the body burns during digestion. People that chew more also tend to eat less, since the longer period of time necessary to chew their food allows more time to reach a state of satiety, which results in eating less. However, the effects of how food is chewed and digestion of different foods are not completely understood and it is possible that other factors exist, and thus this information should be taken with a grain of salt (in moderation if weight loss is the goal). </p>
+    <p class="morelinespace">Generally, foods that take more effort to chew – fruit, vegetables, lean meats, whole grains, etc. – require the body to burn more calories since more calories are required to digest them. It also results in the feeling of satiety for longer periods of time. Furthermore, certain foods like coffee, tea, chilies, cinnamon, and ginger have been found to increase the rate of calories burned, due to the ingredients they contain.</p>
+    <p class="morelinespace">The "quality" of calories consumed is also important. There are different classifications of foods in terms of calories. This includes high-calorie foods, low-calorie foods, and empty calories. Consistent with their naming, high-calorie foods are foods that are calorically dense, meaning that there are a high number of calories relative to serving size, while low-calorie foods have fewer calories relative to serving size. Foods such as fat, oils, fried foods, and sugary foods are examples of high-calorie foods. Being a high-calorie food does not inherently mean that the food is unhealthy however – avocados, quinoa, nuts, and whole grains are all high-calorie foods that are considered healthful in moderation. Low-calorie foods include vegetables and certain fruits, among other things, while empty calories, such as those in added sugars and solid fats, are calories that contain few to no nutrients. Studies have shown that there is a measurable difference between consuming 500 calories of carrots compared to 500 calories of popcorn. As previously mentioned, this in part can be attributed to differences in how the foods are consumed and processed. Carrots require far more chewing and can result in more calories burned during digestion. Again, the mechanism for these differences is not fully defined, but simply note that for weight loss purposes, the general formula of calories in minus calories out determining weight gain or loss does hold, but that the number of calories on a nutrition label is not necessarily indicative of how many calories the body actually retains. While there is no clear-cut or ideal amount of macronutrient proportions a person should consume to maintain a healthy diet or lose weight, eating a "healthy" diet replete with a variety of unprocessed foods such as vegetables, fruits, and lean meats is correlated with being healthier, and is more likely to result in sustainable weight loss. Also, remember that calories from drinks comprise an estimated 21% of a typical person's diet. Many of these calories fall under the category of empty calories. While sodas are an obvious culprit, drinks such as juices and even milk have large amounts of sugar and should be consumed in moderation to avoid negating their nutritional benefits. Ideally, a person should drink water, tea, and coffee without adding sugar in order to reduce calories gained from drinks.</p>
+    <p class="morelinespace">Remember: All foods, including "healthful foods," should be consumed in moderation, and distinctions can often be misleading since even natural foods like fruits can have large amounts of sugar, and foods labeled as "health foods" such as low-calorie foods, reduced-fat foods, etc. can potentially replace one unhealthy component with another. Many reduced-fat foods have large amounts of added sugar to compensate for taste lost through fat reduction. It is important to pay attention to, and consider the different components in a food product in order to determine whether said food should have a place within your diet.</p>
+  </div>
+  
+  <div id="right">
+    <h2>Calories in Common Foods</h2>
+    <table class="cinfoT ">
+    <tbody><tr><td class="cinfoHd">Food</td><td class="cinfoHdL">Serving Size</td><td class="cinfoHdL">Calories</td><td class="cinfoHdL">kJ</td></tr>
+    <tr><td colspan="4"><b>Fruit</b></td></tr>
+    <tr><td>Apple</td><td>1 (4 oz.)</td><td>59</td><td>247</td></tr>
+    <tr><td>Banana</td><td>1 (6 oz.)</td><td>151</td><td>632</td></tr>
+    <tr><td>Grapes</td><td>1 cup</td><td>100</td><td>419</td></tr>
+    <tr><td>Orange</td><td>1 (4 oz.)</td><td>53</td><td>222</td></tr>
+    <tr><td>Pear</td><td>1 (5 oz.)</td><td>82</td><td>343</td></tr>
+    <tr><td>Peach</td><td>1 (6 oz.)</td><td>67</td><td>281</td></tr>
+    <tr><td>Pineapple</td><td>1 cup</td><td>82</td><td>343</td></tr>
+    <tr><td>Strawberry</td><td>1 cup</td><td>53</td><td>222</td></tr>
+    <tr><td>Watermelon</td><td>1 cup</td><td>50</td><td>209</td></tr>
+    
+    <tr><td colspan="4"><b>Vegetables</b></td></tr>
+    <tr><td>Asparagus</td><td>1 cup</td><td>27</td><td>113</td></tr>
+    <tr><td>Broccoli</td><td>1 cup</td><td>45</td><td>188</td></tr>
+    <tr><td>Carrots</td><td>1 cup</td><td>50</td><td>209</td></tr>
+    <tr><td>Cucumber</td><td>4 oz.</td><td>17</td><td>71</td></tr>
+    <tr><td>Eggplant</td><td>1 cup</td><td>35</td><td>147</td></tr>
+    <tr><td>Lettuce</td><td>1 cup</td><td>5</td><td>21</td></tr>
+    <tr><td>Tomato</td><td>1 cup</td><td>22</td><td>92</td></tr>
+    
+    <tr><td colspan="4"><b>Proteins</b></td></tr>
+    <tr><td>Beef, regular, cooked</td><td>2 oz.</td><td>142</td><td>595</td></tr>
+    <tr><td>Chicken, cooked</td><td>2 oz.</td><td>136</td><td>569</td></tr>
+    <tr><td>Tofu</td><td>4 oz.</td><td>86</td><td>360</td></tr>
+    <tr><td>Egg</td><td>1 large</td><td>78</td><td>327</td></tr>
+    <tr><td>Fish, Catfish, cooked</td><td>2 oz.</td><td>136</td><td>569</td></tr>
+    <tr><td>Pork, cooked</td><td>2 oz.</td><td>137</td><td>574</td></tr>
+    <tr><td>Shrimp, cooked</td><td>2 oz.</td><td>56</td><td>234</td></tr>
+    
+    <tr><td colspan="4"><b>Common Meals/Snacks</b></td></tr>
+    <tr><td>Bread, white</td><td>1 slice (1 oz.)</td><td>75</td><td>314</td></tr>
+    <tr><td>Butter</td><td>1 tablespoon</td><td>102</td><td>427</td></tr>
+    <tr><td>Caesar salad</td><td>3 cups</td><td>481</td><td>2014</td></tr>
+    <tr><td>Cheeseburger</td><td>1 sandwich</td><td>285</td><td>1193</td></tr>
+    <tr><td>Hamburger</td><td>1 sandwich</td><td>250</td><td>1047</td></tr>
+    <tr><td>Dark Chocolate</td><td>1 oz. </td><td>155</td><td>649</td></tr>
+    <tr><td>Corn</td><td>1 cup</td><td>132</td><td>553</td></tr>
+    <tr><td>Pizza</td><td>1 slice (14")</td><td>285</td><td>1193</td></tr>
+    <tr><td>Potato</td><td>6 oz.</td><td>130</td><td>544</td></tr>
+    <tr><td>Rice</td><td>1 cup cooked</td><td>206</td><td>862</td></tr>
+    <tr><td>Sandwich</td><td>1 (6" Subway Turkey Sandwich)</td><td>200</td><td>837</td></tr>
+    
+    <tr><td colspan="4"><b>Beverages/Dairy</b></td></tr>
+    <tr><td>Beer</td><td>1 can</td><td>154</td><td>645</td></tr>
+    <tr><td>Coca-Cola Classic</td><td>1 can</td><td>150</td><td>628</td></tr>
+    <tr><td>Diet Coke</td><td>1 can</td><td>0</td><td>0</td></tr>
+    <tr><td>Milk (1%)</td><td>1 cup</td><td>102</td><td>427</td></tr>
+    <tr><td>Milk (2%)</td><td>1 cup</td><td>122</td><td>511</td></tr>
+    <tr><td>Milk (Whole)</td><td>1 cup</td><td>146</td><td>611</td></tr>
+    <tr><td>Orange Juice</td><td>1 cup</td><td>111</td><td>465</td></tr>
+    <tr><td>Apple cider</td><td>1 cup</td><td>117</td><td>490</td></tr>
+    <tr><td>Yogurt (low-fat)</td><td>1 cup</td><td>154</td><td>645</td></tr>
+    <tr><td>Yogurt (non-fat)</td><td>1 cup</td><td>110</td><td>461</td></tr>
+    </tbody>
+    </table>
+    <p>
+      * 1 cup = ~250 milliliters, 1 table spoon = 14.2 gram<br>
+    </p>
+    <br>
+    <h3>2000, 1500, and 1200 Calorie Sample Meal Plans</h3>
+    <table class="cinfoT ">
+      <tbody><tr><td class="cinfoHd">Meal</td><td class="cinfoHdL">1200 Cal Plan</td><td class="cinfoHdL">1500 Cal Plan</td><td class="cinfoHdL">2000 Cal Plan</td></tr>
+      
+      <tr><td valign="top">Breakfast</td><td valign="top">
+      
+      All-bran cereal (125)<br>
+      Milk (50)<br>
+      Banana (90)<br>
+      
+      </td><td valign="top">
+      
+      Granola (120)<br>
+      Greek yogurt (120)<br>
+      Blueberries (40)<br>
+      
+      </td><td valign="top">
+      
+      Buttered toast (150)<br>
+      Egg (80)<br>
+      Banana (90)<br>
+      Almonds (170)<br>
+      
+      </td></tr>
+      <tr><td valign="top">Snack</td><td valign="top">
+      
+      Cucumber (30)<br>
+      Avocado dip (50)<br>
+      
+      </td><td valign="top">
+      
+      Orange (70)<br>
+      
+      </td><td valign="top">
+      
+      Greek yogurt (120)<br>
+      Blueberries (40)<br>
+      
+      </td></tr>
+      <tr><td valign="top">Total</td><td valign="top">345 Calories</td><td valign="top">350 Calories</td><td valign="top">650 Calories</td></tr>
+      <tr><td colspan="4">&nbsp;</td></tr>
+      
+      <tr><td valign="top">Lunch</td><td valign="top">
+      
+      Grilled cheese with tomato (300)<br>
+      Salad (50)<br>
+      
+      </td><td valign="top">
+      
+      Chicken and vegetable soup (300)<br>
+      Bread (100)<br>
+      
+      </td><td valign="top">
+      
+      Grilled chicken (225)<br>
+      Grilled vegetables (125)<br>
+      Pasta (185)<br>
+      
+      </td></tr>
+      <tr><td valign="top">Snack</td><td valign="top">
+      
+      Walnuts (100)<br>
+      
+      </td><td valign="top">
+      
+      Apple (75)<br>
+      Peanut butter (75)<br>
+      
+      </td><td valign="top">
+      
+      Hummus (50)<br>
+      Baby carrots (35)<br>
+      Crackers (65)<br>
+      
+      </td></tr>
+      <tr><td valign="top">Total</td><td valign="top">450 Calories</td><td valign="top">550 Calories</td><td valign="top">685 Calories</td></tr>
+      <tr><td colspan="4">&nbsp;</td></tr>
+      
+      <tr><td valign="top">Dinner</td><td valign="top">
+      
+      Grilled Chicken (200)<br>
+      Brussel sprouts (100)<br>
+      Quinoa (105)<br>
+      
+      </td><td valign="top">
+      
+      Steak (375)<br>
+      Mashed potatoes (150)<br>
+      Asparagus (75)<br>
+      
+      </td><td valign="top">
+      
+      Grilled salmon (225)<br>
+      Brown rice (175)<br>
+      Green beans (100)<br>
+      Walnuts (165)<br>
+      
+      </td></tr>
+      <tr><td valign="top">Total</td><td valign="top">405 Calories</td><td valign="top">600 Calories</td><td valign="top">665 Calories</td></tr>
+      </tbody>
+    </table>
+    <br>
+    <h2>Energy from Common Food Components</h2>
+    <table class="cinfoT ">
+      <tbody><tr valign="top"><td class="cinfoHd">Food Components</td><td class="cinfoHdL">kJ per gram</td><td class="cinfoHdL">Calorie (kcal) per gram</td><td class="cinfoHdL">kJ per ounce</td><td class="cinfoHdL">Calorie (kcal) per ounce</td></tr>
+      <tr><td>Fat</td><td class="cinfoBodL">37</td><td class="cinfoBodL">8.8</td><td class="cinfoBodL">1,049</td><td class="cinfoBodL">249</td></tr>
+      <tr><td>Proteins</td><td class="cinfoBodL">17</td><td class="cinfoBodL">4.1</td><td class="cinfoBodL">482</td><td class="cinfoBodL">116</td></tr>
+    
+      <tr><td>Carbohydrates</td><td class="cinfoBodL">17</td><td class="cinfoBodL">4.1</td><td class="cinfoBodL">482</td><td class="cinfoBodL">116</td></tr>
+      <tr><td>Fiber</td><td class="cinfoBodL">8</td><td class="cinfoBodL">1.9</td><td class="cinfoBodL">227</td><td class="cinfoBodL">54</td></tr>
+    
+      <tr><td>Ethanol (drinking alcohol)</td><td class="cinfoBodL">29</td><td class="cinfoBodL">6.9</td><td class="cinfoBodL">822</td><td class="cinfoBodL">196</td></tr>
+      <tr><td>Organic acids</td><td class="cinfoBodL">13</td><td class="cinfoBodL">3.1</td><td class="cinfoBodL">369</td><td class="cinfoBodL">88</td></tr>
+      <tr><td>Polyols (sugar alcohols, sweeteners)</td><td class="cinfoBodL">10</td><td class="cinfoBodL">2.4</td><td class="cinfoBodL">283</td><td class="cinfoBodL">68</td></tr>
+      </tbody>
+    </table>
+  </div>
+  {% endblock body %}
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
+  <script>
+    var table = document.getElementById("table");
+    var carbs = 0, protein = 0, fats = 0, calories = 0;
+
+    for (var i = 1; i < table.rows.length - 1; i++) {
+      carbs += parseFloat(table.rows[i].cells[1].innerHTML);
+      carbs = Math.round(carbs);
+
+      protein += parseFloat(table.rows[i].cells[2].innerHTML);
+      protein = Math.round(protein);
+
+      fats += parseFloat(table.rows[i].cells[3].innerHTML);
+      fats = Math.round(fats);
+
+      calories += parseFloat(table.rows[i].cells[4].innerHTML);
+      calories = Math.round(calories);
+    }
+
+    document.getElementById("Totalcarbs").innerHTML = '<b>' + carbs + '</b>';
+    document.getElementById("Totalprotein").innerHTML = '<b>' + protein + '</b>';
+    document.getElementById("Totalfats").innerHTML = '<b>' + fats + '</b>';
+    document.getElementById("Totalcalories").innerHTML = '<b>' + calories + '</b>';
+
+    if(calories>={{user.caloriegoal}})
+    {
+      document.getElementById("mail1").style.display="block";
+      document.getElementById("mail2").style.display="block";
+    }
+    else
+    {
+      document.getElementById("mail1").style.display="none";
+      document.getElementById("mail2").style.display="none";
+    }
+    var calper = Math.round((calories / {{user.caloriegoal}}) * 100);
+    document.getElementsByClassName("progress-bar")[0].setAttribute("style", "width:" + calper + "%","text-align:center");
+    document.getElementsByClassName("progress-data")[0].innerHTML= calories + "/"+ {{user.caloriegoal}};
+
+    
+
+
+
+
+    {% comment %} chart js code {% endcomment %}
+
+    var total = carbs + protein + fats;
+    var carbsP = Math.round((carbs / total) * 100);
+    var proteinP = Math.round((protein / total) * 100);
+    var fatsP = Math.round((fats / total) * 100);
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Carbs ' + carbsP + '%', 'Proteins ' + proteinP + '%', 'Fats ' + fatsP + '%'],
+        datasets: [{
+          label: '# of Votes',
+          data: [carbsP, proteinP, fatsP],
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(255, 99, 132, 0.5)',
+            'rgba(255, 206, 86, 0.5)',
+          ],
+          borderColor: [
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 206, 86, 1)',
+          ],
+          borderWidth: 1
+        }]
+      },
+    });
+  </script>
+</body>
+
+</html>

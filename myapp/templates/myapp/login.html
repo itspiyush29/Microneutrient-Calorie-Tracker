@@ -1,0 +1,34 @@
+{% extends 'myapp/index.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="card" style="background-color: inherit;">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+        <h4 class="card-title mt-3 text-center">Login into Account</h4>
+        <br>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group input-group mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                </div>
+                <input name="username" class="form-control" placeholder="Username" type="username">
+            </div> <!-- form-group// -->
+
+            <div class="form-group input-group mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                </div>
+                <input name="password" class="form-control" placeholder="Password" type="password">
+            </div> <!-- form-group// -->
+
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary btn-block mt-4"> Login </button>
+            </div> <!-- form-group// -->
+            <p class="text-center mt-2">Don't have an account? <a href="{% url 'signup' %}">Signup</a> </p>
+        </form>
+    </article>
+</div> <!-- card.// -->
+{% endblock body %}
